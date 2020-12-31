@@ -13,15 +13,9 @@
 interim_usadata <- paste0(interim,"usadata") 
 readRDS(usadata, file=paste0(interim_usadata))
 
-usadata <- mutate(usadata, marcoh= ifelse(marst==6 & sploc==0, 0,
-                  ifelse(marst==1 | marst==2, 1,
-                  ifelse(marst==6 & sploc > 0, 2, 3))))
-
-val_lab(usadata$marcoh) = c("no union" = 0,
-                            "married" = 1, 
-                            "cohabiting" = 2,
-                            "sep/wid/div" = 3
-)
+usadata <- mutate(usadata, marcoh= ifelse(marst==6 & sploc==0, "single",
+                  ifelse(marst==1 | marst==2, "married",
+                  ifelse(marst==6 & sploc > 0, "cohabiting", "sep/wid/div"))))
 
 usadata <- mutate(usadata, yr= ifelse(year==2002, 2,
                                 ifelse(year==2007, 3,

@@ -9,10 +9,9 @@
 # in the scripts/R directory.
 
 # pull in necessary packages
-library(tidyverse)
-library(expss)
-#plibrary(xlsx)
-library(fixest)
+library(tidyverse) # for data wrangling and analysis
+library(expss)     # for labeling
+library(openxlsx)  # to write excel file
 
 username <- Sys.getenv("USERNAME")
 personal_setup <- paste0("setup_", username, ".R")
