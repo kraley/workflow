@@ -12,13 +12,15 @@
 # This will run your personal setup file. 
 # as well as load the necessary libraries. 
 
-source(setup_project.R)
+# scripts
+scripts <- getwd()
+source(paste0(scripts, "/setup_project.R"))
 
 # read in and label raw datafile downloaded from IPUMS
-source(usa_00011.R)
+source(paste0(scripts, "/usa_00011.R"))
 
 # create analysis variables
-source(marcoh_wrangle.R)
+source(paste0(scripts, "/marcoh_wrangle.R"))
 
 # output a descriptive table
-source(marcoh_describe.R)
+source(paste0(scripts, "/marcoh_describe.R"))

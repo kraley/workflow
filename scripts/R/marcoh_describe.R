@@ -69,7 +69,7 @@ women_marcoh_year <- marcoh_year %>%
 # write results to excel spreadsheetp
 #####################################################
 
-results_file  <- paste0(results,"Table1.xlsx")
+results_file  <- paste0(results,"Table1R.xlsx")
 
 #write.xlsx(men_marcoh_year, file = paste0(results_file), sheetName = "Table 1R",
 #           col.names = TRUE, row.names = FALSE, append = FALSE)
