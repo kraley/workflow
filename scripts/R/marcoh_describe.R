@@ -4,6 +4,8 @@
 # 
 # Part of workflow demonstration
 # by Kelly Raley
+#
+# Still some details to work out
 #***************************************************************************
 #  log using "$logdir/marcoh_describe_`logdate'.log", t replace
 
@@ -47,7 +49,8 @@ men_marcoh_year <- marcoh_year %>%
             spread(marcoh, wpmarcoh, fill = NA, convert = FALSE) %>%
       
             #put columns in the order I want them
-            select(year, single, married, cohabiting)
+            select(year, single, married, cohabiting) %>%
+            as.data.frame()
 
 women_marcoh_year <- marcoh_year %>%
             filter(sex == 2) %>%
@@ -56,8 +59,11 @@ women_marcoh_year <- marcoh_year %>%
             #put marital-cohab status in columns
             spread(marcoh, wpmarcoh, fill = NA, convert = FALSE) %>%
   
-            #put columns in the order I want them
-            select(year, single, married, cohabiting)
+            #put columns in the order I want them. don't need year b/c it
+            # is in the men's table, which we will put in the excel file
+            # to the left (first)
+            select(single, married, cohabiting) %>%
+            as.data.frame()
 
 ######################################################
 # write results to excel spreadsheetp
@@ -65,33 +71,55 @@ women_marcoh_year <- marcoh_year %>%
 
 results_file  <- paste0(results,"Table1.xlsx")
 
-wb <- createWorkbook()
-addWorksheet(wb, "Table 1")
+#write.xlsx(men_marcoh_year, file = paste0(results_file), sheetName = "Table 1R",
+#           col.names = TRUE, row.names = FALSE, append = FALSE)
 
-writeDataTable(
-  wb,
-  "Table 1",
-  men_marcoh_year,
-  startCol = 1,
-  startRow = 3,
-  xy = NULL,
-  colNames = TRUE,
-  rowNames = FALSE,
-  tableStyle = "TableStyleLight9",
-  tableName = NULL,
-  headerStyle = NULL,
-  withFilter = TRUE,
-  keepNA = FALSE,
-  na.string = NULL,
-  sep = "",
-  stack = FALSE,
-  firstColumn = FALSE,
-  lastColumn = FALSE,
-  bandedRows = TRUE,
-  bandedCols = FALSE
-)
+#write.xlsx(women_marcoh_year, file = paste0(results_file), sheetName = "Table 1R",
+#           col.names = TRUE, row.names = FALSE, append = TRUE)
 
-saveWorkbook(wb, paste0(results_file), overwrite = TRUE)
+wb <- createWorkbook(type="xlsx")
+sheet <- createSheet(wb, sheetName = "Table 1R")
+
+title_style <- CellStyle(wb) + Border(color="black", position="BOTTOM", pen = "BORDER_THIN")
+
+column_name_style <- CellStyle(wb)+ Border(color="black", position="BOTTOM", pen = "BORDER_THIN")
+
+xlsx.addTitle <- function(sheet, rowIndex, title, titleStyle){
+  rows <- createRow(sheet,rowIndex=rowIndex)
+  sheetTitle <-  createCell(rows,colIndex=1)
+  setCellValue(sheetTitle[[1,1]], title)
+  setCellStyle(sheetTitle[[1,1]], titleStyle)
+}
+
+xlsx.addTitle(sheet, rowIndex=1, title="Trends in Marital-Cohabitation Status for Black Men and Women age 20-24",
+              titleStyle = title_style)
+
+# add subtitles
+
+xlsx.addsubtitle  <- function(sheet, rowIndex, colIndex, title, titleStyle){
+  rows <- createRow(sheet,rowIndex = rowIndex)
+  subTitle <-  createCell(rows,colIndex=colIndex)
+  setCellValue(subTitle[[1,1]], title)
+  setCellStyle(subTitle[[1,1]], titleStyle)
+}
+
+# for men -- not sure why it isn't working
+xlsx.addsubtitle(sheet, rowIndex=2, colIndex=2, title="Men", titleStyle = title_style)
+
+# for men
+xlsx.addsubtitle(sheet, rowIndex=2, colIndex=6, title="Women", titleStyle = title_style)
+
+addDataFrame(men_marcoh_year, sheet, startRow=3, startColumn = 1,
+             colnamesStyle = column_name_style,
+             row.names = FALSE)
+
+addDataFrame(women_marcoh_year, sheet, startRow=3, startColumn = 6,
+             colnamesStyle = column_name_style,
+             row.names = FALSE)
+
+setColumnWidth(sheet, colIndex=5, colWidth=3)
+
+saveWorkbook(wb, paste0(results_file))
 
 # stata code
 # putexcel set "$results/Table1.xlsx", replace
