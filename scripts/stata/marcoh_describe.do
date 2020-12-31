@@ -22,7 +22,7 @@ forvalues y=1/6 {
 	matrix womenprop`y' = e(Prop)
 }
 
-putexcel set "$results/Table1.xlsx", replace
+putexcel set "$results/Table1stata.xlsx", sheet("stata") replace
 
 *********************************************************************************
 * Create Table Shell
