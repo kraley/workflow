@@ -1,5 +1,5 @@
 ****************************************************************************
-* This file creates a variable describing marital-cohabitation status 
+* This file creates the variables we need for the analysis
 * 
 * Part of workflow demonstration
 * by Kelly Raley
@@ -21,6 +21,13 @@ label define marcoh 0 "not married or cohabiting"
 # delimit cr
 
 label var marcoh marcoh
+
+gen yr=1 if year==2001
+replace yr=2 if year==2002
+replace yr=3 if year==2007
+replace yr=4 if year==2008
+replace yr=5 if year==2017
+replace yr=6 if year==2018
 
 save "$interim/marcoh_recode.dta", replace
 

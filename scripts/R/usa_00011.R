@@ -18,13 +18,6 @@ usadata <- read.fwf(paste(original_usadata),
 
 usadata <- mutate(usadata, hhwt = hhwt/100, perwt = perwt/100)
 
-#format serial   %8.0f
-#format cbserial %13.0f
-#format hhwt     %10.2f
-#format cluster  %13.0f
-#format strata   %12.0f
-#format perwt    %10.2f
-
 usadata = apply_labels(usadata, 
                        year = "Census year",
                        sample = "IPUMS sample identifier",

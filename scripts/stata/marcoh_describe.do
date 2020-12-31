@@ -11,13 +11,6 @@ use "$interim/marcoh_recode.dta", clear
 
 svyset cluster [pweight=perwt], strata(strata)
 
-gen yr=1 if year==2001
-replace yr=2 if year==2002
-replace yr=3 if year==2007
-replace yr=4 if year==2008
-replace yr=5 if year==2017
-replace yr=6 if year==2018
-
 forvalues y=1/6 {
 	svy, subpop(if sex==1): tab year marcoh if yr == `y'
 	* storing the proportions in a matrix, one for each year

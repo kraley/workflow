@@ -4,6 +4,7 @@
 * parts of this code are taken from scripts written by Joanna Pepin and Robert Reynolds
 
 * The current directory is assumed to be base directory of your scripts.
+* cd to ..github/workflow/scripts/stata if you haven't already
 
 * We expect to find your setup file, named setup_<username>.do
 * in the current directory.
