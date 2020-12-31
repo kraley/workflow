@@ -8,6 +8,7 @@
 # now we are creating an object that combines the file location and 
 # file name (same for everyone on the project and so you should not change)
 # to be able to easily read in the data.
+
 original_usadata <- paste0(original,"usa_00011.dat")
 
 usadata <- read.fwf(paste(original_usadata),

@@ -5,11 +5,13 @@
 # by Kelly Raley
 #***************************************************************************
   
-# Before running this file, be sure you are in the scripts directory
+# We assume that you are working from your scripts directory 
+# (../github/workflow/scripts/R). Change to this directory using 
+# the terminal (or cntl-Shift-H) before executing any of the scripts.
 
 # This will run your personal setup file. 
 # as well as load the necessary libraries. 
-I don't have this worked out yet
+
 source(setup_project.R)
 
 # read in and label raw datafile downloaded from IPUMS

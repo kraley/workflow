@@ -1,15 +1,17 @@
 # This file sets up the base project environment. 
 # It is the same for all project members
 # 
-# This assumes that you are working from your scripts directory (../github/workflow/scripts/R).
-# Change to this directory using the terminal before executing any of the scripts
+# This assumes that you are working from your scripts directory 
+# (../github/workflow/scripts/R). Change to this directory using 
+# the terminal (or cntl-Shift-H) before executing any of the scripts.
 
 # We expect to find your setup file, named setup_<username>.do
-# in the scripts directory.
+# in the scripts/R directory.
 
 # pull in necessary packages
 library(tidyverse)
-library(xlsx)
+library(expss)
+#plibrary(xlsx)
 library(fixest)
 
 username <- Sys.getenv("USERNAME")
